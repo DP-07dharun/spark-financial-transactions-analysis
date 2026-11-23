@@ -348,8 +348,13 @@ executors (51 on worker2 and 50 on worker1). Every `sortBy` produced an extra sa
 
 For 5,000 rows, **more than 80 % of the time is fixed overhead**: starting the YARN ApplicationMaster, launching two
 executor containers (executors registered 2–6 s after the driver), and uploading Spark's jars to HDFS on every
-submission (`WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set`). Setting `spark.yarn.archive` to a
-pre-uploaded archive would remove the upload step.
+submission (`WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set`). Each NodeManager also kept its own
+copy of those jars per application, about 4.1 GB per worker after 13 runs.
+
+This was fixed afterwards with [`cluster/setup-spark-yarn-archive.sh`](cluster/setup-spark-yarn-archive.sh), which
+uploads the jars once to `hdfs:///spark-jars/spark-libs.jar` and sets `spark.yarn.archive`. Each worker now keeps a
+single shared 323 MB copy. The second job submitted after the change finished in **13.3 s instead of ~19 s**. (The
+measurements in this report were taken before the change.)
 
 Inside the jobs, the **first stage that touches the data is the slowest** (stage 1: 866 ms of executor time), because of
 JVM class loading and JIT warm-up. Equivalent stages later in the same application take 20–40 ms. Shuffles are tiny

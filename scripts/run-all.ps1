@@ -62,6 +62,12 @@ if ((docker ps -a --format "{{.Names}}") -notcontains "spark-ui-proxy") {
     -c "socat TCP-LISTEN:4040,fork,reuseaddr TCP:hadoop-master:4040 & socat TCP-LISTEN:18080,fork,reuseaddr TCP:hadoop-master:18080" | Out-Null
 } else { docker start spark-ui-proxy | Out-Null }
 
+Step "Shared Spark jar archive (spark.yarn.archive) - avoids re-uploading ~320 MB of jars per job"
+if (-not (InMaster "grep -c '^spark.yarn.archive' /usr/local/spark/conf/spark-defaults.conf 2>/dev/null")) {
+  CopyToMaster (Join-Path $Root "cluster\setup-spark-yarn-archive.sh")
+  InMaster "bash $Remote/setup-spark-yarn-archive.sh"
+}
+
 Step "Part I - HDFS"
 docker cp (Join-Path $Root "data\transactions.csv") "hadoop-master:$Remote/transactions.csv" | Out-Null
 CopyToMaster (Join-Path $Root "cluster\part1_hdfs.sh")

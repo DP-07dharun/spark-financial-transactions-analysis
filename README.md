@@ -93,6 +93,7 @@ docker exec -it hadoop-master bash
   cd ~/bigdata-project
   bash part1_hdfs.sh                 # Part I
   bash start-history-server.sh       # Spark UI for finished apps on :18080
+  bash setup-spark-yarn-archive.sh   # once: share Spark's jars instead of uploading them per job
   bash run-spark-shell.sh            # Part II
   # Part III: build on the host (cd spark-batch && mvn package), docker cp the jar, then
   bash run-batch-jobs.sh             # all six classes (or: bash run-batch-jobs.sh TopCities)
