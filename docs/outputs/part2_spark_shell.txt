@@ -1,0 +1,109 @@
+﻿Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/23 21:09:22 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.
+Spark context Web UI available at http://hadoop-master:4040
+Spark context available as 'sc' (master = yarn, app id = application_1795467892423_0001).
+Spark session available as 'spark'.
+==================== Load the dataset ====================
+Header      : user_id,transaction_id,bank_account_id,financial_institution_id,date,third_party,category,transaction_amount,city,payment_method,currency
+Partitions  : 2
+Records     : 5000
+==================== Task 1 - Total transaction amount per category ====================
+[Task 1 took 121 ms]
+Shopping            70638.47 EUR
+Food                55659.92 EUR
+Travel              47200.79 EUR
+Utilities           32472.72 EUR
+Transport           26020.93 EUR
+Restaurants         21240.17 EUR
+Health              20554.98 EUR
+Education           13727.02 EUR
+Entertainment       10879.33 EUR
+Lineage of Task 1:
+(2) MapPartitionsRDD[10] at sortBy at analysis.scala:61 []
+ |  ShuffledRDD[9] at sortBy at analysis.scala:61 []
+ +-(2) MapPartitionsRDD[6] at sortBy at analysis.scala:61 []
+    |  ShuffledRDD[5] at reduceByKey at analysis.scala:60 []
+    +-(2) MapPartitionsRDD[4] at map at analysis.scala:59 []
+       |  MapPartitionsRDD[3] at map at analysis.scala:53 []
+       |  MapPartitionsRDD[2] at filter at analysis.scala:44 []
+       |  hdfs:///project/input/transactions.csv MapPartitionsRDD[1] at textFile at analysis.scala:42 []
+       |  hdfs:///project/input/transactions.csv HadoopRDD[0] at textFile at analysis.scala:42 []
+==================== Task 2 - Number of transactions per user ====================
+[Task 2 took 291 ms]
+Distinct users: 249
+Top 10 most active users:
+  U0184      93 transactions
+  U0108      71 transactions
+  U0135      70 transactions
+  U0073      56 transactions
+  U0062      49 transactions
+  U0063      49 transactions
+  U0016      49 transactions
+  U0080      48 transactions
+  U0180      45 transactions
+  U0158      44 transactions
+==================== Task 3 - Most popular third-party vendors ====================
+[Task 3 took 191 ms]
+Leclerc                225 tx     10184.66 EUR
+Monoprix               208 tx      9984.64 EUR
+Lidl                   206 tx      9822.56 EUR
+Picard                 197 tx      9003.70 EUR
+Auchan                 186 tx      8594.95 EUR
+Carrefour              178 tx      8069.41 EUR
+Paul                   175 tx      4555.44 EUR
+Starbucks              164 tx      4545.95 EUR
+McDonalds              153 tx      4234.56 EUR
+UberEats               149 tx      4125.55 EUR
+==================== Task 4 - Top spending cities ====================
+[Task 4 took 223 ms]
+ 1. Paris            90865.34 EUR
+ 2. Lyon             32052.17 EUR
+ 3. Marseille        27607.40 EUR
+ 4. Toulouse         27536.16 EUR
+ 5. Nantes           23368.13 EUR
+ 6. Nice             22423.83 EUR
+ 7. Lille            21690.13 EUR
+ 8. Strasbourg       20394.12 EUR
+ 9. Bordeaux         16768.24 EUR
+10. Rouen            15688.81 EUR
+==================== Task 5 - Financial institutions handling the most transactions ====================
+[Task 5 took 193 ms]
+Institution 101    998 transactions
+Institution 102    968 transactions
+Institution 103    763 transactions
+Institution 104    718 transactions
+Institution 105    460 transactions
+Institution 106    357 transactions
+Institution 107    320 transactions
+Institution 108    255 transactions
+Institution 109    161 transactions
+==================== Task 6 - Monthly spending trends ====================
+[Task 6 took 111 ms]
+2025-01     20792.90 EUR   338 tx  avg   61.52  #####################
+2025-02     16151.38 EUR   305 tx  avg   52.96  ################
+2025-03     22693.20 EUR   361 tx  avg   62.86  #######################
+2025-04     22132.65 EUR   354 tx  avg   62.52  ######################
+2025-05     24605.80 EUR   420 tx  avg   58.59  #########################
+2025-06     24346.82 EUR   456 tx  avg   53.39  ########################
+2025-07     27266.26 EUR   474 tx  avg   57.52  ###########################
+2025-08     31005.42 EUR   478 tx  avg   64.86  ###############################
+2025-09     24785.24 EUR   385 tx  avg   64.38  #########################
+2025-10     23016.84 EUR   399 tx  avg   57.69  #######################
+2025-11     21601.19 EUR   417 tx  avg   51.80  ######################
+2025-12     39996.63 EUR   613 tx  avg   65.25  ########################################
+Lineage of Task 6:
+(2) ShuffledRDD[43] at sortByKey at analysis.scala:105 []
+ +-(2) ShuffledRDD[40] at reduceByKey at analysis.scala:104 []
+    +-(2) MapPartitionsRDD[39] at map at analysis.scala:103 []
+       |  MapPartitionsRDD[3] at map at analysis.scala:53 []
+       |  MapPartitionsRDD[2] at filter at analysis.scala:44 []
+       |  hdfs:///project/input/transactions.csv MapPartitionsRDD[1] at textFile at analysis.scala:42 []
+       |  hdfs:///project/input/transactions.csv HadoopRDD[0] at textFile at analysis.scala:42 []
+==================== Caching experiment ====================
+[6 tasks, NO cache took 691 ms]
+[cache() + count() to materialise took 171 ms]
+[6 tasks, WITH cache took 311 ms]
+Cached RDD storage level: Memory Deserialized 1x Replicated
+Application ID: application_1795467892423_0001
+Done.

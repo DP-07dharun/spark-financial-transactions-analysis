@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>bigdata.transactions</groupId>
+  <artifactId>spark-transactions-batch</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>Financial transactions - Spark RDD batch jobs</name>
+
+  <properties>
+    <!-- Must match the cluster: Spark 3.5.0 / Scala 2.12 / Java 8 (liliasfaxi/hadoop-cluster). -->
+    <spark.version>3.5.0</spark.version>
+    <scala.binary.version>2.12</scala.binary.version>
+    <maven.compiler.release>8</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <!-- "provided": the cluster already ships Spark, so it is not bundled into the jar. -->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_${scala.binary.version}</artifactId>
+      <version>${spark.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>spark-transactions-batch</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <compilerArgs>
+            <arg>-Xlint:-options</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

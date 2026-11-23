@@ -1,0 +1,76 @@
+﻿
+$ hdfs dfs -cat /project/output/category_spending/part-00000 | head -n 12
+Shopping,70638.47
+Food,55659.92
+Travel,47200.79
+Utilities,32472.72
+Transport,26020.93
+Restaurants,21240.17
+Health,20554.98
+Education,13727.02
+Entertainment,10879.33
+
+$ hdfs dfs -cat /project/output/transactions_per_user/part-00000 | head -n 12
+U0001,10
+U0002,19
+U0003,26
+U0004,3
+U0005,26
+U0006,8
+U0007,10
+U0008,11
+U0009,21
+U0010,29
+U0011,10
+U0012,16
+
+$ hdfs dfs -cat /project/output/top_vendors/part-00000 | head -n 12
+Leclerc,225,10184.66
+Monoprix,208,9984.64
+Lidl,206,9822.56
+Picard,197,9003.70
+Auchan,186,8594.95
+Carrefour,178,8069.41
+Paul,175,4555.44
+Starbucks,164,4545.95
+McDonalds,153,4234.56
+UberEats,149,4125.55
+Deliveroo,143,3778.67
+Fnac,143,12443.27
+
+$ hdfs dfs -cat /project/output/top_cities/part-00000 | head -n 12
+Paris,90865.34
+Lyon,32052.17
+Marseille,27607.40
+Toulouse,27536.16
+Nantes,23368.13
+Nice,22423.83
+Lille,21690.13
+Strasbourg,20394.12
+Bordeaux,16768.24
+Rouen,15688.81
+
+$ hdfs dfs -cat /project/output/institutions/part-00000 | head -n 12
+101,998
+102,968
+103,763
+104,718
+105,460
+106,357
+107,320
+108,255
+109,161
+
+$ hdfs dfs -cat /project/output/monthly_trends/part-00000 | head -n 12
+2025-01,20792.90,338
+2025-02,16151.38,305
+2025-03,22693.20,361
+2025-04,22132.65,354
+2025-05,24605.80,420
+2025-06,24346.82,456
+2025-07,27266.26,474
+2025-08,31005.42,478
+2025-09,24785.24,385
+2025-10,23016.84,399
+2025-11,21601.19,417
+2025-12,39996.63,613

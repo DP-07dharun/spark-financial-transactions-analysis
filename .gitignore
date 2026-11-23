@@ -1,0 +1,16 @@
+# Maven / Java
+spark-batch/target/
+*.class
+
+# Python
+__pycache__/
+*.pyc
+
+# Local build helpers
+build/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

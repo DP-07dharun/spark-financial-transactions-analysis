@@ -1,0 +1,81 @@
+﻿=== Task 1 - Create the directory project/input ===
+
+$ hdfs dfs -mkdir -p /project/input
+
+=== Task 2 - Upload the CSV file to HDFS ===
+
+$ hdfs dfs -put -f /root/bigdata-project/transactions.csv /project/input/transactions.csv
+
+=== Task 3 - Verify the upload ===
+
+$ hdfs dfs -ls /project/input
+Found 1 items
+-rw-r--r--   2 root supergroup     472714 2026-11-23 21:23 /project/input/transactions.csv
+
+$ hdfs dfs -du -h /project/input/transactions.csv
+461.6 K  923.3 K  /project/input/transactions.csv
+
+$ hdfs fsck /project/input/transactions.csv -files -blocks -locations
+Connecting to namenode via http://hadoop-master:9870/fsck?ugi=root&files=1&blocks=1&locations=1&path=%2Fproject%2Finput%2Ftransactions.csv
+FSCK started by root (auth:SIMPLE) from /172.18.0.2 for path /project/input/transactions.csv at Mon Nov 23 21:24:02 GMT 2026
+
+/project/input/transactions.csv 472714 bytes, replicated: replication=2, 1 block(s):  OK
+0. BP-1221111878-172.18.0.2-1781585643399:blk_1073742024_1200 len=472714 Live_repl=2  [DatanodeInfoWithStorage[172.18.0.3:9866,DS-8b29628f-71fe-443b-8f18-728330a42cac,DISK], DatanodeInfoWithStorage[172.18.0.4:9866,DS-e0ddfebb-9e77-43f1-aea5-ef8cab107d16,DISK]]
+
+
+Status: HEALTHY
+ Number of data-nodes:	2
+ Number of racks:		1
+ Total dirs:			0
+ Total symlinks:		0
+
+Replicated Blocks:
+ Total size:	472714 B
+ Total files:	1
+ Total blocks (validated):	1 (avg. block size 472714 B)
+ Minimally replicated blocks:	1 (100.0 %)
+ Over-replicated blocks:	0 (0.0 %)
+ Under-replicated blocks:	0 (0.0 %)
+ Mis-replicated blocks:		0 (0.0 %)
+ Default replication factor:	2
+ Average block replication:	2.0
+ Missing blocks:		0
+ Corrupt blocks:		0
+ Missing replicas:		0 (0.0 %)
+ Blocks queued for replication:	0
+
+Erasure Coded Block Groups:
+ Total size:	0 B
+ Total files:	0
+ Total block groups (validated):	0
+ Minimally erasure-coded block groups:	0
+ Over-erasure-coded block groups:	0
+ Under-erasure-coded block groups:	0
+ Unsatisfactory placement block groups:	0
+ Average block group size:	0.0
+ Missing block groups:		0
+ Corrupt block groups:		0
+ Missing internal blocks:	0
+ Blocks queued for replication:	0
+FSCK ended at Mon Nov 23 21:24:02 GMT 2026 in 2 milliseconds
+
+
+The filesystem under path '/project/input/transactions.csv' is HEALTHY
+
+=== Task 4 - Display the first records ===
+
+$ hdfs dfs -cat /project/input/transactions.csv | head -n 11
+user_id,transaction_id,bank_account_id,financial_institution_id,date,third_party,category,transaction_amount,city,payment_method,currency
+U0200,TXN0000001,ACC59823245,104,2025-01-01 07:10:37,Paul,Restaurants,7.03,Lille,Card,EUR
+U0014,TXN0000002,ACC28566572,103,2025-01-01 08:04:51,Carrefour,Food,74.39,Strasbourg,Card,EUR
+U0083,TXN0000003,ACC66379329,106,2025-01-01 09:26:23,Clinique Pasteur,Health,29.09,Nantes,Contactless,EUR
+U0107,TXN0000004,ACC46540265,103,2025-01-01 12:36:29,H&M,Shopping,363.46,Paris,Direct Debit,EUR
+U0234,TXN0000005,ACC30537388,102,2025-01-01 13:01:50,Air France,Travel,553.00,Paris,Card,EUR
+U0003,TXN0000006,ACC97226012,105,2025-01-01 15:08:22,TotalEnergies,Transport,33.62,Paris,Contactless,EUR
+U0062,TXN0000007,ACC39372360,101,2025-01-01 18:20:42,Clinique Pasteur,Health,25.69,Paris,Card,EUR
+U0242,TXN0000008,ACC48951595,108,2025-01-01 19:13:11,Carrefour,Food,113.03,Lyon,Transfer,EUR
+U0137,TXN0000009,ACC28358198,104,2025-01-01 19:54:47,Airbnb,Travel,56.65,Toulouse,Direct Debit,EUR
+U0238,TXN0000010,ACC14064904,103,2025-01-01 20:12:36,Amazon,Shopping,47.72,Rouen,Contactless,EUR
+
+$ hdfs dfs -cat /project/input/transactions.csv | wc -l
+5001

@@ -1,0 +1,118 @@
+﻿# spark-submit --class bigdata.transactions.CategorySpending spark-transactions-batch.jar
+################################################################################
+==================== Task 1 - Total transaction amount per category ====================
+Shopping            70638.47 EUR   23.7%
+Food                55659.92 EUR   18.7%
+Travel              47200.79 EUR   15.8%
+Utilities           32472.72 EUR   10.9%
+Transport           26020.93 EUR    8.7%
+Restaurants         21240.17 EUR    7.1%
+Health              20554.98 EUR    6.9%
+Education           13727.02 EUR    4.6%
+Entertainment       10879.33 EUR    3.6%
+TOTAL              298394.33 EUR
+Saved to hdfs:///project/output/category_spending
+[CategorySpending finished in 21.431 s (spark-submit wall time), exit 0]
+
+################################################################################
+# spark-submit --class bigdata.transactions.TransactionsPerUser spark-transactions-batch.jar
+################################################################################
+==================== Task 2 - Number of transactions per user ====================
+Distinct users: 249, average 20.1 transactions per user
+Top 10 most active users:
+  U0184      93 transactions
+  U0108      71 transactions
+  U0135      70 transactions
+  U0073      56 transactions
+  U0062      49 transactions
+  U0063      49 transactions
+  U0016      49 transactions
+  U0080      48 transactions
+  U0180      45 transactions
+  U0158      44 transactions
+Saved to hdfs:///project/output/transactions_per_user
+[TransactionsPerUser finished in 22.649 s (spark-submit wall time), exit 0]
+
+################################################################################
+# spark-submit --class bigdata.transactions.TopVendors spark-transactions-batch.jar
+################################################################################
+==================== Task 3 - Most popular third-party vendors (top 10) ====================
+ 1. Leclerc                225 tx    10184.66 EUR
+ 2. Monoprix               208 tx     9984.64 EUR
+ 3. Lidl                   206 tx     9822.56 EUR
+ 4. Picard                 197 tx     9003.70 EUR
+ 5. Auchan                 186 tx     8594.95 EUR
+ 6. Carrefour              178 tx     8069.41 EUR
+ 7. Paul                   175 tx     4555.44 EUR
+ 8. Starbucks              164 tx     4545.95 EUR
+ 9. McDonalds              153 tx     4234.56 EUR
+10. UberEats               149 tx     4125.55 EUR
+Saved to hdfs:///project/output/top_vendors
+[TopVendors finished in 20.468 s (spark-submit wall time), exit 0]
+
+################################################################################
+# spark-submit --class bigdata.transactions.TopCities spark-transactions-batch.jar
+################################################################################
+==================== Task 4 - Top spending cities ====================
+ 1. Paris            90865.34 EUR
+ 2. Lyon             32052.17 EUR
+ 3. Marseille        27607.40 EUR
+ 4. Toulouse         27536.16 EUR
+ 5. Nantes           23368.13 EUR
+ 6. Nice             22423.83 EUR
+ 7. Lille            21690.13 EUR
+ 8. Strasbourg       20394.12 EUR
+ 9. Bordeaux         16768.24 EUR
+10. Rouen            15688.81 EUR
+Saved to hdfs:///project/output/top_cities
+[TopCities finished in 20.029 s (spark-submit wall time), exit 0]
+
+################################################################################
+# spark-submit --class bigdata.transactions.InstitutionWithMostTransactions spark-transactions-batch.jar
+################################################################################
+==================== Task 5 - Financial institutions handling the most transactions ====================
+Institution 101    998 transactions   20.0%
+Institution 102    968 transactions   19.4%
+Institution 103    763 transactions   15.3%
+Institution 104    718 transactions   14.4%
+Institution 105    460 transactions    9.2%
+Institution 106    357 transactions    7.1%
+Institution 107    320 transactions    6.4%
+Institution 108    255 transactions    5.1%
+Institution 109    161 transactions    3.2%
+Most transactions: institution 101 (998)
+Saved to hdfs:///project/output/institutions
+[InstitutionWithMostTransactions finished in 19.301 s (spark-submit wall time), exit 0]
+
+################################################################################
+# spark-submit --class bigdata.transactions.MonthlySpendingTrends spark-transactions-batch.jar
+################################################################################
+==================== Task 6 - Monthly spending trends ====================
+2025-01    20792.90 EUR  338 tx avg  61.52        ################
+2025-02    16151.38 EUR  305 tx avg  52.96 -22.3% ############
+2025-03    22693.20 EUR  361 tx avg  62.86 +40.5% #################
+2025-04    22132.65 EUR  354 tx avg  62.52  -2.5% #################
+2025-05    24605.80 EUR  420 tx avg  58.59 +11.2% ##################
+2025-06    24346.82 EUR  456 tx avg  53.39  -1.1% ##################
+2025-07    27266.26 EUR  474 tx avg  57.52 +12.0% ####################
+2025-08    31005.42 EUR  478 tx avg  64.86 +13.7% #######################
+2025-09    24785.24 EUR  385 tx avg  64.38 -20.1% ###################
+2025-10    23016.84 EUR  399 tx avg  57.69  -7.1% #################
+2025-11    21601.19 EUR  417 tx avg  51.80  -6.2% ################
+2025-12    39996.63 EUR  613 tx avg  65.25 +85.2% ##############################
+Saved to hdfs:///project/output/monthly_trends
+[MonthlySpendingTrends finished in 18.292 s (spark-submit wall time), exit 0]
+
+=== HDFS output directories ===
+drwxr-xr-x   - root supergroup          0 2026-11-23 21:14 /project/output/category_spending
+-rw-r--r--   2 root supergroup        165 2026-11-23 21:14 /project/output/category_spending/part-00000
+drwxr-xr-x   - root supergroup          0 2026-11-23 21:15 /project/output/institutions
+-rw-r--r--   2 root supergroup         72 2026-11-23 21:15 /project/output/institutions/part-00000
+drwxr-xr-x   - root supergroup          0 2026-11-23 21:16 /project/output/monthly_trends
+-rw-r--r--   2 root supergroup        252 2026-11-23 21:16 /project/output/monthly_trends/part-00000
+drwxr-xr-x   - root supergroup          0 2026-11-23 21:15 /project/output/top_cities
+-rw-r--r--   2 root supergroup        164 2026-11-23 21:15 /project/output/top_cities/part-00000
+drwxr-xr-x   - root supergroup          0 2026-11-23 21:15 /project/output/top_vendors
+-rw-r--r--   2 root supergroup        903 2026-11-23 21:15 /project/output/top_vendors/part-00000
+drwxr-xr-x   - root supergroup          0 2026-11-23 21:14 /project/output/transactions_per_user
+-rw-r--r--   2 root supergroup       2197 2026-11-23 21:14 /project/output/transactions_per_user/part-00000
